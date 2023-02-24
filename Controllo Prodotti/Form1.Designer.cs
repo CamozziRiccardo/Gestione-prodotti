@@ -95,7 +95,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(153, 35);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Aggiungi al carrello";
+            this.button1.Text = "Aggiungi un prodotto al carrello";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -121,7 +121,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(153, 35);
             this.button2.TabIndex = 8;
-            this.button2.Text = "Ricerca nel carrello";
+            this.button2.Text = "Ricerca un prodotto nel carrello";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -131,17 +131,17 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(153, 23);
             this.button3.TabIndex = 9;
-            this.button3.Text = "Togli dal carrello";
+            this.button3.Text = "Togli un prodotto dal carrello";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(324, 179);
+            this.button4.Location = new System.Drawing.Point(324, 173);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(153, 23);
+            this.button4.Size = new System.Drawing.Size(153, 35);
             this.button4.TabIndex = 10;
-            this.button4.Text = "Togli il prodotto per sostituirlo";
+            this.button4.Text = "Togli il prodotto ricercato per sostituirlo con un altro prodotto";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -219,7 +219,6 @@
             this.Controls.Add(this.listView1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
