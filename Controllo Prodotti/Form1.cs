@@ -12,6 +12,7 @@ namespace Controllo_Prodotti
 {
     public partial class Form1 : Form
     {
+        #region dichiarazione variabili globali
         public struct Prodotto
         {
             public string[] prod;
@@ -22,6 +23,8 @@ namespace Controllo_Prodotti
 
         public static Prodotto prodotto = new Prodotto();
 
+        #endregion
+
         public Form1()
         {
             InitializeComponent();
@@ -30,6 +33,7 @@ namespace Controllo_Prodotti
             prodotto.prezzo = new string[100];
         }
 
+        #region Pulsanti
         private void button1_Click(object sender, EventArgs e)
         {
             //chiamata alla funzione di caricamento, prendendo come parametri da mettere nello struct le stringhe presenti nelle textBox
@@ -103,6 +107,37 @@ namespace Controllo_Prodotti
             textBox4.Text = "";
             textBox5.Text = "";
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            calcp();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //richiamo la funzione di sconto per calcolare il nuovo prezzo
+            sconto(int.Parse(textBox6.Text));
+
+            //richiamo la funzione di stampa per stampare i nuovi prezzi
+            stampa();
+
+            //pulisco la textbox per immetere un nuovo valore
+            textBox6.Text = "";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //richiamo la funzione di sconto per calcolare il nuovo prezzo
+            sconto(-int.Parse(textBox6.Text));
+
+            //richiamo la funzione di stampa per stampare i nuovi prezzi
+            stampa();
+
+            //pulisco la textbox per immetere un nuovo valore
+            textBox6.Text = "";
+        }
+
+        #endregion
 
         #region funzioni di servizio
         //funzione di caricamento
@@ -192,6 +227,36 @@ namespace Controllo_Prodotti
             prodotto.prod[pos] = nome;
             prodotto.prezzo[pos] = prez;
         }
+
+        //funzione di calcolo del prezzo totale
+        void calcp()
+        {
+            //variabile locale per il calcolo del prezzo
+            float prezzo = 0;
+
+            //ciclo per il calcolo
+            for(int i = 0; i < dim; i++)
+            {
+                prezzo += float.Parse(prodotto.prezzo[i]);
+            }
+
+            //aggiunta del prezzo alla listview
+            listView1.Items.Add("prezzo spesa: €" + prezzo);
+        }
+
+        //funzione di calcolo dei prezzi scontati o aumentati
+        void sconto(int sconto)
+        {
+            for(int i = 0; i < dim; i++)
+            {
+                //calcolo dello sconto su una variabile temporanea
+                float nuovop = float.Parse(prodotto.prezzo[i]) + (float.Parse(prodotto.prezzo[i]) / 100 * sconto);
+
+                //spostamento del valore della variabile sull'array apposito
+                prodotto.prezzo[i] = nuovop.ToString();
+            }
+        }
+
         #endregion
     }
 }
