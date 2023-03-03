@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Controllo_Prodotti
 {
@@ -137,6 +138,17 @@ namespace Controllo_Prodotti
             textBox6.Text = "";
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //richiamo alla funzione di creazione del file
+            create();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            read();
+        }
+
         #endregion
 
         #region funzioni di servizio
@@ -201,7 +213,7 @@ namespace Controllo_Prodotti
                     return pos;
                 }
             }
-            //nel caso il prodotto no0n venga trovato, assegno il valore -1 alla variabile pos e ritrono al programma
+            //nel caso il prodotto non venga trovato, assegno il valore -1 alla variabile pos e ritrono al programma
             pos = -1;
             return pos;
         }
@@ -255,6 +267,27 @@ namespace Controllo_Prodotti
                 //spostamento del valore della variabile sull'array apposito
                 prodotto.prezzo[i] = nuovop.ToString();
             }
+        }
+
+        //funzione di creazione del file
+        void create()
+        {
+            //creazione del nome del file
+            string filename = @"Carrello.txt";
+
+            //creazione effettiva del file
+            using (StreamWriter sw = new StreamWriter(filename, append:false))
+            {
+                for (int i = 0; i < dim; i++)
+                {
+                    sw.WriteLine(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
+                }
+            }
+        }
+
+        void read()
+        {
+
         }
 
         #endregion
