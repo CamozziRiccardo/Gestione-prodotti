@@ -22,7 +22,6 @@ namespace Controllo_Prodotti
 
         public static int dim;
 
-        //creazione del nome del file
         string filename;
 
         public static Prodotto prodotto = new Prodotto();
@@ -280,9 +279,10 @@ namespace Controllo_Prodotti
         //funzione di creazione del file
         void create()
         {
-            //creazione effettiva del file
+            //creazione del file
             using (StreamWriter sw = new StreamWriter(filename, append: false))
             {
+                //ciclo di copia della listview sul file
                 for (int i = 0; i < dim; i++)
                 {
                     sw.WriteLine(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
@@ -290,26 +290,18 @@ namespace Controllo_Prodotti
             }
         }
 
-        void update()
-        {
-            using (StreamWriter sw = new StreamWriter(filename, append: true))
-            {
-                for (int i = 0; i < dim; i++)
-                {
-                    sw.WriteLine(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
-                }
-            }
-        }
-
+        //funzione di lettura del file
         void read()
         {
+            //lettura del file
             using (StreamReader sr = File.OpenText(filename))
             {
                 string s;
+
+                //ciclo di stampa sulla listview
                 while ((s = sr.ReadLine()) != null)
                 {
                     listView1.Items.Add(s);
-
                 }
             }
         }
