@@ -146,11 +146,6 @@ namespace Controllo_Prodotti
             //richiamo alla funzione di creazione del file
             create();
         }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            update();
-        }
         private void button10_Click(object sender, EventArgs e)
         {
             read();
