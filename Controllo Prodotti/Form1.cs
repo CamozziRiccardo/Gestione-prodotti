@@ -152,6 +152,10 @@ namespace Controllo_Prodotti
         {
             update();
         }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            read();
+        }
 
         #endregion
 
@@ -251,7 +255,7 @@ namespace Controllo_Prodotti
             float prezzo = 0;
 
             //ciclo per il calcolo
-            for(int i = 0; i < dim; i++)
+            for (int i = 0; i < dim; i++)
             {
                 prezzo += float.Parse(prodotto.prezzo[i]);
             }
@@ -263,7 +267,7 @@ namespace Controllo_Prodotti
         //funzione di calcolo dei prezzi scontati o aumentati
         void sconto(int sconto)
         {
-            for(int i = 0; i < dim; i++)
+            for (int i = 0; i < dim; i++)
             {
                 //calcolo dello sconto su una variabile temporanea
                 float nuovop = float.Parse(prodotto.prezzo[i]) + (float.Parse(prodotto.prezzo[i]) / 100 * sconto);
@@ -277,7 +281,7 @@ namespace Controllo_Prodotti
         void create()
         {
             //creazione effettiva del file
-            using (StreamWriter sw = new StreamWriter(filename, append:false))
+            using (StreamWriter sw = new StreamWriter(filename, append: false))
             {
                 for (int i = 0; i < dim; i++)
                 {
@@ -293,6 +297,19 @@ namespace Controllo_Prodotti
                 for (int i = 0; i < dim; i++)
                 {
                     sw.WriteLine(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
+                }
+            }
+        }
+
+        void read()
+        {
+            using (StreamReader sr = File.OpenText(filename))
+            {
+                string s;
+                while ((s = sr.ReadLine()) != null)
+                {
+                    listView1.Items.Add(s);
+
                 }
             }
         }
