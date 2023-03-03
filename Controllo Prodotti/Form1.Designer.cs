@@ -284,7 +284,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(174, 35);
             this.button9.TabIndex = 25;
-            this.button9.Text = "Lettura del file creato";
+            this.button9.Text = "Aggiorna il file";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 

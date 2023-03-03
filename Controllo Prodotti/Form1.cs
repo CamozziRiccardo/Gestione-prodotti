@@ -22,6 +22,9 @@ namespace Controllo_Prodotti
 
         public static int dim;
 
+        //creazione del nome del file
+        string filename;
+
         public static Prodotto prodotto = new Prodotto();
 
         #endregion
@@ -30,6 +33,7 @@ namespace Controllo_Prodotti
         {
             InitializeComponent();
             dim = 0;
+            filename = @"carrello.csv";
             prodotto.prod = new string[100];
             prodotto.prezzo = new string[100];
         }
@@ -146,7 +150,7 @@ namespace Controllo_Prodotti
 
         private void button9_Click(object sender, EventArgs e)
         {
-            read();
+            update();
         }
 
         #endregion
@@ -272,9 +276,6 @@ namespace Controllo_Prodotti
         //funzione di creazione del file
         void create()
         {
-            //creazione del nome del file
-            string filename = @"Carrello.txt";
-
             //creazione effettiva del file
             using (StreamWriter sw = new StreamWriter(filename, append:false))
             {
@@ -285,9 +286,15 @@ namespace Controllo_Prodotti
             }
         }
 
-        void read()
+        void update()
         {
-
+            using (StreamWriter sw = new StreamWriter(filename, append: true))
+            {
+                for (int i = 0; i < dim; i++)
+                {
+                    sw.WriteLine(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
+                }
+            }
         }
 
         #endregion
