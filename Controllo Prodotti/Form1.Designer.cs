@@ -62,7 +62,7 @@
             // listView1
             // 
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(486, 25);
+            this.listView1.Location = new System.Drawing.Point(571, 25);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(217, 413);
             this.listView1.TabIndex = 0;
@@ -201,7 +201,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(483, 9);
+            this.label7.Location = new System.Drawing.Point(568, 9);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(45, 13);
             this.label7.TabIndex = 16;
@@ -324,7 +324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 450);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.label11);
@@ -355,7 +355,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
             this.Name = "Form1";
-            this.Text = "Supermercato";
+            this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
