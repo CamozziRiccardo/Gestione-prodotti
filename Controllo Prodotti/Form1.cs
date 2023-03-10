@@ -346,6 +346,9 @@ namespace Controllo_Prodotti
         //funzione di lettura del file
         void read()
         {
+            //pulisco la listview per la stampa del file
+            listView1.Items.Clear();
+
             //lettura del file
             using (StreamReader sr = File.OpenText(filename))
             {
