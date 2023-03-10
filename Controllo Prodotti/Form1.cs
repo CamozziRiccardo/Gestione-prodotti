@@ -18,6 +18,7 @@ namespace Controllo_Prodotti
         {
             public string[] prod;
             public string[] prezzo;
+            public int[] quantità;
         }
 
         public static int dim;
@@ -35,6 +36,7 @@ namespace Controllo_Prodotti
             filename = @"carrello.csv";
             prodotto.prod = new string[100];
             prodotto.prezzo = new string[100];
+            prodotto.quantità = new int[100];
         }
 
         #region Pulsanti
@@ -171,10 +173,23 @@ namespace Controllo_Prodotti
         //funzione di caricamento
         static void caricamento(string p, string pr)
         {
-            //inserisco il nome e il prezzo del prosotto nello struct
-            prodotto.prod[dim] = p;
-            prodotto.prezzo[dim] = pr;
-
+            //controllo che il prodotto sia stato già aggiunto o meno
+            for (int i = 0; i < dim; i++)
+            {
+                //se il prodotto è ancora stato inserito già stato inserito, aumento la quantità del prodotto in quella posizione e ritorno...
+                if (prodotto.prod[dim + 1] == prodotto.prod[i])
+                {
+                    prodotto.quantità[i] += 1;
+                    return;
+                }
+                //... altrimenti...
+                else
+                {
+                    //...inserisco il nome e il prezzo del prosotto nello struct
+                    prodotto.prod[dim] = p;
+                    prodotto.prezzo[dim] = pr;
+                }
+            }
             //aumento la dimensione data l'aggiunta di elementi
             dim++;
         }
@@ -188,7 +203,7 @@ namespace Controllo_Prodotti
             //stampa degli array nella listview attraverso un ciclo
             for (int i = 0; i < dim; i++)
             {
-                listView1.Items.Add(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
+                listView1.Items.Add(prodotto.prod[i] + " €" + (prodotto.quantità[i] * int.Parse(prodotto.prezzo[i])).ToString());
             }
         }
 
