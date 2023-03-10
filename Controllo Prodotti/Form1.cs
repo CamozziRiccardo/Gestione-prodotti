@@ -171,27 +171,43 @@ namespace Controllo_Prodotti
 
         #region funzioni di servizio
         //funzione di caricamento
-        static void caricamento(string p, string pr)
+        void caricamento(string p, string pr)
         {
-            //controllo che il prodotto sia stato già aggiunto o meno
-            for (int i = 0; i < dim; i++)
+            if (dim != 0)
             {
-                //se il prodotto è ancora stato inserito già stato inserito, aumento la quantità del prodotto in quella posizione e ritorno...
-                if (prodotto.prod[dim + 1] == prodotto.prod[i])
+                //controllo che il prodotto sia stato già aggiunto o meno
+                for (int i = 0; i < dim; i++)
                 {
-                    prodotto.quantità[i] += 1;
-                    return;
+                    //se il prodotto è ancora stato inserito già stato inserito, aumento la quantità del prodotto in quella posizione e ritorno...
+                    if (p == prodotto.prod[i])
+                    {
+                        prodotto.quantità[i] += 1;
+                        return;
+                    }
+                    //... altrimenti...
+                    else
+                    {
+                        //...inserisco il nome e il prezzo del prosotto nello struct
+                        prodotto.prod[dim] = p;
+                        prodotto.prezzo[dim] = pr;
+                    }
                 }
-                //... altrimenti...
-                else
-                {
-                    //...inserisco il nome e il prezzo del prosotto nello struct
-                    prodotto.prod[dim] = p;
-                    prodotto.prezzo[dim] = pr;
-                }
+                //aumento la quantità dell'elemento appena aggiunto
+                prodotto.quantità[dim] += 1;
+
+                //aumento la dimensione data l'aggiunta di elementi
+                dim++;
             }
-            //aumento la dimensione data l'aggiunta di elementi
-            dim++;
+            else
+            {
+                //inserisco il nome e il prezzo del prosotto nello struct
+                prodotto.prod[dim] = p;
+                prodotto.prezzo[dim] = pr;
+                prodotto.quantità[dim] += 1;
+
+                //aumento la dimensione data l'aggiunta di elementi
+                dim++;
+            }
         }
 
         //funzione di stampa
@@ -203,7 +219,7 @@ namespace Controllo_Prodotti
             //stampa degli array nella listview attraverso un ciclo
             for (int i = 0; i < dim; i++)
             {
-                listView1.Items.Add(prodotto.prod[i] + " €" + (prodotto.quantità[i] * int.Parse(prodotto.prezzo[i])).ToString());
+                listView1.Items.Add(prodotto.quantità[i] + " " + prodotto.prod[i] + " €" + (prodotto.quantità[i] * float.Parse(prodotto.prezzo[i])).ToString());
             }
         }
 
@@ -280,7 +296,7 @@ namespace Controllo_Prodotti
             //ciclo per il calcolo
             for (int i = 0; i < dim; i++)
             {
-                prezzo += float.Parse(prodotto.prezzo[i]);
+                prezzo += prodotto.quantità[i] * float.Parse(prodotto.prezzo[i]);
             }
 
             //aggiunta del prezzo alla listview
