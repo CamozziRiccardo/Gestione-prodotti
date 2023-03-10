@@ -151,6 +151,12 @@ namespace Controllo_Prodotti
             read();
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            //richiamo la funzione di ricerca del podotto più costoso
+            costomag();
+        }
+
         #endregion
 
         #region funzioni di servizio
@@ -269,6 +275,28 @@ namespace Controllo_Prodotti
                 //spostamento del valore della variabile sull'array apposito
                 prodotto.prezzo[i] = nuovop.ToString();
             }
+        }
+
+        //funzione di calcolo del prodotto più costoso
+        void costomag()
+        {
+            //creazione variabile in cui verrà inserito il prodotto con costo maggiore
+            string costoso = prodotto.prod[0];
+            float costoso2 = float.Parse(prodotto.prezzo[0]);
+
+            //ciclo di controllo
+            for (int i = 0; i < dim; i++)
+            {
+                //se il prezzo salvato è minore di un,altro prezzo, salvo quel prezzo e nome
+                if (costoso2 < float.Parse(prodotto.prezzo[i]))
+                {
+                    costoso = prodotto.prod[i];
+                    costoso2 = float.Parse(prodotto.prezzo[i]);
+                }
+            }
+
+            //una volta finito il cilo e trovato il prodotto più costoso, lo comunico attraverso una messagebox
+            MessageBox.Show("Il prodotto più costoso è: " + costoso);
         }
 
         //funzione di creazione del file
