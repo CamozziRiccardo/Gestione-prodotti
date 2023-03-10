@@ -146,15 +146,23 @@ namespace Controllo_Prodotti
             //richiamo alla funzione di creazione del file
             create();
         }
-        private void button10_Click(object sender, EventArgs e)
-        {
-            read();
-        }
 
         private void button9_Click(object sender, EventArgs e)
         {
             //richiamo la funzione di ricerca del podotto più costoso
             costomag();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            //richiamo la funzione di calcolo del prodotto meno costoso
+            costomin();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            //richiamo la funzione di lettura del file creato in precedenza
+            read();
         }
 
         #endregion
@@ -297,6 +305,28 @@ namespace Controllo_Prodotti
 
             //una volta finito il cilo e trovato il prodotto più costoso, lo comunico attraverso una messagebox
             MessageBox.Show("Il prodotto più costoso è: " + costoso);
+        }
+
+        //funzione di calcolo del prodotto meno costoso
+        void costomin()
+        {
+            //creazione variabile in cui verrà inserito il prodotto con costo maggiore
+            string costoso = prodotto.prod[0];
+            float costoso2 = float.Parse(prodotto.prezzo[0]);
+
+            //ciclo di controllo
+            for (int i = 0; i < dim; i++)
+            {
+                //se il prezzo salvato è minore di un,altro prezzo, salvo quel prezzo e nome
+                if (costoso2 > float.Parse(prodotto.prezzo[i]))
+                {
+                    costoso = prodotto.prod[i];
+                    costoso2 = float.Parse(prodotto.prezzo[i]);
+                }
+            }
+
+            //una volta finito il cilo e trovato il prodotto più costoso, lo comunico attraverso una messagebox
+            MessageBox.Show("Il prodotto meno costoso è: " + costoso);
         }
 
         //funzione di creazione del file
