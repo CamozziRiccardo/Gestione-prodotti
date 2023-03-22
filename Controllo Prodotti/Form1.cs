@@ -16,16 +16,16 @@ namespace Controllo_Prodotti
         #region dichiarazione variabili globali
         public struct Prodotto
         {
-            public string[] prod;
-            public string[] prezzo;
-            public int[] quantità;
+            public string prod;
+            public string prezzo;
+            public int quantità;
         }
 
         public static int dim;
 
         string filename;
 
-        public static Prodotto prodotto = new Prodotto();
+        public static Prodotto[] prodotto;
 
         #endregion
 
@@ -34,9 +34,7 @@ namespace Controllo_Prodotti
             InitializeComponent();
             dim = 0;
             filename = @"carrello.csv";
-            prodotto.prod = new string[100];
-            prodotto.prezzo = new string[100];
-            prodotto.quantità = new int[100];
+            prodotto = new Prodotto[100];
         }
 
         #region Pulsanti
@@ -179,21 +177,21 @@ namespace Controllo_Prodotti
                 for (int i = 0; i < dim; i++)
                 {
                     //se il prodotto è ancora stato inserito già stato inserito, aumento la quantità del prodotto in quella posizione e ritorno...
-                    if (p == prodotto.prod[i])
+                    if (p == prodotto[i].prod)
                     {
-                        prodotto.quantità[i] += 1;
+                        prodotto[i].quantità += 1;
                         return;
                     }
                     //... altrimenti...
                     else
                     {
                         //...inserisco il nome e il prezzo del prosotto nello struct
-                        prodotto.prod[dim] = p;
-                        prodotto.prezzo[dim] = pr;
+                        prodotto[dim].prod = p;
+                        prodotto[dim].prezzo = pr;
                     }
                 }
                 //aumento la quantità dell'elemento appena aggiunto
-                prodotto.quantità[dim] += 1;
+                prodotto[dim].quantità += 1;
 
                 //aumento la dimensione data l'aggiunta di elementi
                 dim++;
@@ -201,9 +199,9 @@ namespace Controllo_Prodotti
             else
             {
                 //inserisco il nome e il prezzo del prosotto nello struct
-                prodotto.prod[dim] = p;
-                prodotto.prezzo[dim] = pr;
-                prodotto.quantità[dim] += 1;
+                prodotto[dim].prod = p;
+                prodotto[dim].prezzo = pr;
+                prodotto[dim].quantità += 1;
 
                 //aumento la dimensione data l'aggiunta di elementi
                 dim++;
@@ -219,7 +217,7 @@ namespace Controllo_Prodotti
             //stampa degli array nella listview attraverso un ciclo
             for (int i = 0; i < dim; i++)
             {
-                listView1.Items.Add(prodotto.quantità[i] + " " + prodotto.prod[i] + " €" + (prodotto.quantità[i] * float.Parse(prodotto.prezzo[i])).ToString());
+                listView1.Items.Add(prodotto[i].quantità + " " + prodotto[i].prod + " €" + (prodotto[i].quantità * float.Parse(prodotto[i].prezzo)).ToString());
             }
         }
 
@@ -230,7 +228,7 @@ namespace Controllo_Prodotti
             for (int i = 0; i < dim; i++)
             {
                 //nel caso venga trovato il prodotto ricercato ...
-                if (prodotto.prod[i] == nome)
+                if (prodotto[i].prod == nome)
                 {
                     //... avviso l'utente e torno al programma
                     MessageBox.Show("Elemento trovato");
@@ -251,7 +249,7 @@ namespace Controllo_Prodotti
             for (int i = 0; i < dim; i++)
             {
                 //nel caso venga trovato il prodotto ricercato ...
-                if (prodotto.prod[i] == nome)
+                if (prodotto[i].prod == nome)
                 {
                     //.. la variabile posizione prende il valore dell'indice del ciclo e ...
                     pos = i;
@@ -271,8 +269,9 @@ namespace Controllo_Prodotti
             //ciclo di retrocessione degli elementi dalla posizione per il cancellamento
             for (int i = pos; i < dim; i++)
             {
-                prodotto.prezzo[i] = prodotto.prezzo[i + 1];
-                prodotto.prod[i] = prodotto.prod[i + 1];
+                prodotto[i].prezzo = prodotto[i + 1].prezzo;
+                prodotto[i].prod = prodotto[i + 1].prod;
+                prodotto[i].quantità = prodotto[i + 1].quantità;
             }
 
             //diminuzione della grandezza degli array dato il cancellamento di uno degli elementi
@@ -283,8 +282,8 @@ namespace Controllo_Prodotti
         void mod(string nome, string prez, int pos)
         {
             //modifica degli elementi nella posizione trovata dalla funzione di ricerca
-            prodotto.prod[pos] = nome;
-            prodotto.prezzo[pos] = prez;
+            prodotto[pos].prod = nome;
+            prodotto[pos].prezzo = prez;
         }
 
         //funzione di calcolo del prezzo totale
@@ -296,7 +295,7 @@ namespace Controllo_Prodotti
             //ciclo per il calcolo
             for (int i = 0; i < dim; i++)
             {
-                prezzo += prodotto.quantità[i] * float.Parse(prodotto.prezzo[i]);
+                prezzo += prodotto[i].quantità * float.Parse(prodotto[i].prezzo);
             }
 
             //aggiunta del prezzo alla listview
@@ -309,10 +308,10 @@ namespace Controllo_Prodotti
             for (int i = 0; i < dim; i++)
             {
                 //calcolo dello sconto su una variabile temporanea
-                float nuovop = float.Parse(prodotto.prezzo[i]) + (float.Parse(prodotto.prezzo[i]) / 100 * sconto);
+                float nuovop = float.Parse(prodotto[i].prezzo) + (float.Parse(prodotto[i].prezzo) / 100 * sconto);
 
                 //spostamento del valore della variabile sull'array apposito
-                prodotto.prezzo[i] = nuovop.ToString();
+                prodotto[i].prezzo = nuovop.ToString();
             }
         }
 
@@ -320,17 +319,17 @@ namespace Controllo_Prodotti
         void costomag()
         {
             //creazione variabile in cui verrà inserito il prodotto con costo maggiore
-            string costoso = prodotto.prod[0];
-            float costoso2 = float.Parse(prodotto.prezzo[0]);
+            string costoso = prodotto[0].prod;
+            float costoso2 = float.Parse(prodotto[0].prezzo);
 
             //ciclo di controllo
             for (int i = 0; i < dim; i++)
             {
                 //se il prezzo salvato è minore di un,altro prezzo, salvo quel prezzo e nome
-                if (costoso2 < float.Parse(prodotto.prezzo[i]))
+                if (costoso2 < float.Parse(prodotto[i].prezzo))
                 {
-                    costoso = prodotto.prod[i];
-                    costoso2 = float.Parse(prodotto.prezzo[i]);
+                    costoso = prodotto[i].prod;
+                    costoso2 = float.Parse(prodotto[i].prezzo);
                 }
             }
 
@@ -342,17 +341,17 @@ namespace Controllo_Prodotti
         void costomin()
         {
             //creazione variabile in cui verrà inserito il prodotto con costo maggiore
-            string costoso = prodotto.prod[0];
-            float costoso2 = float.Parse(prodotto.prezzo[0]);
+            string costoso = prodotto[0].prod;
+            float costoso2 = float.Parse(prodotto[0].prezzo);
 
             //ciclo di controllo
             for (int i = 0; i < dim; i++)
             {
                 //se il prezzo salvato è minore di un,altro prezzo, salvo quel prezzo e nome
-                if (costoso2 > float.Parse(prodotto.prezzo[i]))
+                if (costoso2 > float.Parse(prodotto[i].prezzo))
                 {
-                    costoso = prodotto.prod[i];
-                    costoso2 = float.Parse(prodotto.prezzo[i]);
+                    costoso = prodotto[i].prod;
+                    costoso2 = float.Parse(prodotto[i].prezzo);
                 }
             }
 
@@ -369,7 +368,7 @@ namespace Controllo_Prodotti
                 //ciclo di copia della listview sul file
                 for (int i = 0; i < dim; i++)
                 {
-                    sw.WriteLine(prodotto.prod[i] + " €" + prodotto.prezzo[i]);
+                    sw.WriteLine(prodotto[i].prod + " €" + prodotto[i].prezzo);
                 }
             }
         }
